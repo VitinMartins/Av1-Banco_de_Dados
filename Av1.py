@@ -137,7 +137,7 @@ class IndexApp:
             else:
                 self.result_label.config(text="Registro não encontrado")
             
-            self.update_stats()  # Atualiza as estatísticas após a busca
+            self.update_stats() 
         else:
             self.result_label.config(text="Defina o tamanho da página primeiro.")
 
@@ -153,7 +153,7 @@ class IndexApp:
             else:
                 self.result_label.config(text="Registro não encontrado")
             
-            self.update_stats()  # Atualiza as estatísticas após o table scan
+            self.update_stats()  
         else:
             self.result_label.config(text="Defina o tamanho da página primeiro.")
 
