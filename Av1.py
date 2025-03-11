@@ -3,10 +3,14 @@ from tkinter import ttk, messagebox
 import math
 import time
 
-class Page:
+#Overflow = Numero máximo de páginas alcançado no bucket
+#Colisão = Bucket cheio, sem espaço para adicionar mais registrosclass Page:
+#nb = Número de buckets
+#fr = capacidade máximo de páginas que o bucket pode ter
+
     def __init__(self, size):
         self.size = size
-        self.data = []
+        self.data = [] #dados da página
 
     def add_record(self, record):
         if len(self.data) < self.size:
@@ -17,18 +21,19 @@ class Page:
 class Bucket:
     def __init__(self, fr):
         self.fr = fr
-        self.pages = []
+        self.pages = [] #instância da classe Page
         self.overflow_count = 0  
 
     def add_record(self, record, page_size):
-        for page in self.pages:
+        for page in self.pages: #Já existentes 
             if page.add_record(record):
                 return True
-        if len(self.pages) < self.fr:
+        #Se o registro não foi adicionado em nenhuma página existente
+        if len(self.pages) < self.fr: 
             new_page = Page(page_size)
             new_page.add_record(record)
             self.pages.append(new_page)
-            return True
+            return True #Se for sucesso a página é adicionada a lista de páginas do bucket
         self.overflow_count += 1 
         return False  
 
@@ -42,7 +47,8 @@ def read_data(file_path):
     return [line.strip() for line in data]
 
 def build_index(data, page_size, nb, fr):
-    buckets = [Bucket(fr) for _ in range(nb)]
+    buckets = [Bucket(fr) for _ in range(nb)] #Cria-se uma Lista de nb buckets 
+    #Cada bucket é uma instância da classe Bucket
     collisions = 0
     for record in data:
         bucket_index = custom_hash_function(record, nb)
